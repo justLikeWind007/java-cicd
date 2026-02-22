@@ -35,12 +35,22 @@ jobs:
         run: |
           test -n "${{ inputs.backend_image_tag }}"
           test -n "${{ inputs.frontend_image_tag }}"
+      
+      - name: 校验部署 Secrets
+        run: |
+          test -n "${{ secrets.DEPLOY_HOST }}"
+          test -n "${{ secrets.DEPLOY_USER }}"
+          test -n "${{ secrets.DEPLOY_SSH_KEY }}"
+          test -n "${{ secrets.GHCR_USERNAME }}"
+          test -n "${{ secrets.GHCR_PAT }}"
+          test -n "${{ secrets.DEPLOY_WORKDIR }}"
 
       - name: 打印部署清单
         run: |
           echo "目标环境: ${{ inputs.environment }}"
           echo "后端镜像: ghcr.io/${{ github.repository }}-backend:${{ inputs.backend_image_tag }}"
           echo "前端镜像: ghcr.io/${{ github.repository }}-frontend:${{ inputs.frontend_image_tag }}"
+          echo "部署目录: ${{ secrets.DEPLOY_WORKDIR }}"
 
       - name: 远程部署（基于 SSH）
         uses: appleboy/ssh-action@v1.0.3
@@ -55,5 +65,5 @@ jobs:
             docker pull ghcr.io/${{ github.repository }}-frontend:${{ inputs.frontend_image_tag }}
             export BACKEND_IMAGE=ghcr.io/${{ github.repository }}-backend:${{ inputs.backend_image_tag }}
             export FRONTEND_IMAGE=ghcr.io/${{ github.repository }}-frontend:${{ inputs.frontend_image_tag }}
-            cd /opt/java-cicd
+            cd ${{ secrets.DEPLOY_WORKDIR }}
             docker compose -f docker-compose.prod.yml up -d

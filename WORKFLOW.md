@@ -66,6 +66,8 @@ The frontend page calls backend API through `/api/message`.
 
 Enterprise setup details:
 - `docs/CICD_ENTERPRISE.md`
+- `deploy/docker-compose.prod.yml.example`
+- `deploy/SECRETS.example`
 
 ## 5) Recommended daily flow
 ```bash

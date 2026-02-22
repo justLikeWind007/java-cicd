@@ -21,6 +21,9 @@
 - [x] 企业级安全工作流实现（CodeQL）
 - [x] 企业级依赖治理实现（Dependabot）
 - [x] 企业级落地文档已添加
+- [x] 个人开发分支 CI 触发范围扩展（feature/fix/chore）
+- [x] 个人部署参数化支持（DEPLOY_WORKDIR）
+- [x] 个人部署模板与 Secrets 示例已添加
 - [ ] PRD finalized
 - [ ] Milestones planned
 - [ ] End-to-end verification on GitHub
@@ -28,3 +31,4 @@
 [Notes]
 - This file tracks execution progress and key checkpoints.
 - New enterprise tasks added and implemented on 2026-02-22.
+- New personal-dev tasks added and implemented on 2026-02-22.
