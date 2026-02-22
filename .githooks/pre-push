@@ -14,7 +14,7 @@ fi
 
 if [[ -f "./frontend/package.json" ]]; then
   echo "Running frontend build before push..."
-  (cd frontend && npm install >/dev/null 2>&1 && npm run build >/dev/null 2>&1)
+  (cd frontend && npm ci >/dev/null 2>&1 && npm run build >/dev/null 2>&1)
 fi
 
 echo "Pre-push checks passed."

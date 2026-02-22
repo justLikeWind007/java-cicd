@@ -1,4 +1,4 @@
-# GitHub CI/CD Workflow
+# GitHub 企业级 CI/CD Workflow
 
 ## Goal
 - Commit each completed change quickly.
@@ -39,16 +39,16 @@ AUTOCOMMIT_INTERVAL=2 AUTOCOMMIT_PREFIX="chore(auto): save" scripts/autocommit.s
 ```
 
 ## 3) GitHub as CI/CD medium
-- CI/CD workflow file: `.github/workflows/ci-cd.yml`
-- Trigger:
-  - push to `main/master`
-  - pull request to `main/master`
-  - push tag like `v1.0.0`
-- Actions:
-  - backend CI (`./mvnw -B clean verify`)
-  - frontend CI (`npm install` + `npm run build`)
-  - build two Docker images (`backend`, `frontend`)
-  - push images to GHCR only on `main/master` or version tags
+- CI workflow: `.github/workflows/ci.yml`
+- CD workflow: `.github/workflows/cd.yml`
+- Deploy workflow: `.github/workflows/deploy.yml`
+- Security workflow: `.github/workflows/codeql.yml`
+
+Triggers:
+- PR to `main/master` triggers CI + security checks
+- Push to `main/master` triggers CI + CD image publish
+- Push tag `v*.*.*` triggers CD release publish
+- Manual dispatch triggers environment deployment
 
 Image names:
 - `ghcr.io/<owner>/<repo>-backend`
@@ -63,6 +63,9 @@ Open:
 - `http://127.0.0.1:8080`
 
 The frontend page calls backend API through `/api/message`.
+
+Enterprise setup details:
+- `docs/CICD_ENTERPRISE.md`
 
 ## 5) Recommended daily flow
 ```bash

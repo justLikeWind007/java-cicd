@@ -1,0 +1,59 @@
+name: 企业级部署
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "部署环境（dev/staging/prod）"
+        required: true
+        default: "dev"
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
+      backend_image_tag:
+        description: "后端镜像标签（例如 sha-xxx 或 v1.0.0）"
+        required: true
+        type: string
+      frontend_image_tag:
+        description: "前端镜像标签（例如 sha-xxx 或 v1.0.0）"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: 部署到目标环境
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+
+    steps:
+      - name: 校验部署变量
+        run: |
+          test -n "${{ inputs.backend_image_tag }}"
+          test -n "${{ inputs.frontend_image_tag }}"
+
+      - name: 打印部署清单
+        run: |
+          echo "目标环境: ${{ inputs.environment }}"
+          echo "后端镜像: ghcr.io/${{ github.repository }}-backend:${{ inputs.backend_image_tag }}"
+          echo "前端镜像: ghcr.io/${{ github.repository }}-frontend:${{ inputs.frontend_image_tag }}"
+
+      - name: 远程部署（基于 SSH）
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            set -e
+            docker login ghcr.io -u "${{ secrets.GHCR_USERNAME }}" -p "${{ secrets.GHCR_PAT }}"
+            docker pull ghcr.io/${{ github.repository }}-backend:${{ inputs.backend_image_tag }}
+            docker pull ghcr.io/${{ github.repository }}-frontend:${{ inputs.frontend_image_tag }}
+            export BACKEND_IMAGE=ghcr.io/${{ github.repository }}-backend:${{ inputs.backend_image_tag }}
+            export FRONTEND_IMAGE=ghcr.io/${{ github.repository }}-frontend:${{ inputs.frontend_image_tag }}
+            cd /opt/java-cicd
+            docker compose -f docker-compose.prod.yml up -d

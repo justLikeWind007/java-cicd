@@ -2,7 +2,7 @@
 
 - Date: 2026-02-22
 - Project: java-cicd
-- Status: Frontend + Backend demo CI/CD implementation in progress
+- Status: 企业级 CI/CD 基线已实现并进入验收阶段
 
 [Checklist]
 - [x] Repository initialized
@@ -15,9 +15,16 @@
 - [x] Demo APIs implemented
 - [x] Frontend demo app implemented
 - [x] Local docker compose demo initialized
+- [x] 企业级 CI 工作流实现（质量门禁 + 依赖审查）
+- [x] 企业级 CD 工作流实现（镜像发布 + SBOM + Provenance）
+- [x] 企业级部署工作流实现（环境化手工发布）
+- [x] 企业级安全工作流实现（CodeQL）
+- [x] 企业级依赖治理实现（Dependabot）
+- [x] 企业级落地文档已添加
 - [ ] PRD finalized
 - [ ] Milestones planned
 - [ ] End-to-end verification on GitHub
 
 [Notes]
 - This file tracks execution progress and key checkpoints.
+- New enterprise tasks added and implemented on 2026-02-22.
