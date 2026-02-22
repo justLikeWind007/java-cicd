@@ -2,16 +2,22 @@
 
 - Date: 2026-02-22
 - Project: java-cicd
-- Status: Git commit workflow + GitHub CI/CD baseline initialized
+- Status: Frontend + Backend demo CI/CD implementation in progress
 
 [Checklist]
 - [x] Repository initialized
-- [x] CI workflow initialized
-- [x] Dockerfile initialized
+- [x] Backend CI workflow initialized
+- [x] Frontend CI workflow initialized
+- [x] Backend Docker build initialized
+- [x] Frontend Docker build initialized
 - [x] Git hooks workflow initialized
 - [x] Checkpoint commit scripts initialized
+- [x] Demo APIs implemented
+- [x] Frontend demo app implemented
+- [x] Local docker compose demo initialized
 - [ ] PRD finalized
 - [ ] Milestones planned
+- [ ] End-to-end verification on GitHub
 
 [Notes]
 - This file tracks execution progress and key checkpoints.

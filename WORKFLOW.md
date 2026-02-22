@@ -3,6 +3,7 @@
 ## Goal
 - Commit each completed change quickly.
 - Use GitHub push/PR as the trigger for CI/CD.
+- Demonstrate a separated frontend + backend delivery flow.
 
 ## 1) Initialize local workflow
 ```bash
@@ -14,7 +15,8 @@ This configures:
 - `core.hooksPath=.githooks`
 - `pre-push` hook:
   - blocks push if working tree is dirty
-  - runs `./mvnw -q test` before push
+  - runs backend tests before push
+  - runs frontend build before push (if frontend exists)
 
 ## 2) Commit strategy
 - Manual checkpoint commit:
@@ -41,12 +43,28 @@ AUTOCOMMIT_INTERVAL=2 AUTOCOMMIT_PREFIX="chore(auto): save" scripts/autocommit.s
 - Trigger:
   - push to `main/master`
   - pull request to `main/master`
+  - push tag like `v1.0.0`
 - Actions:
-  - build & test with Maven
-  - build Docker image
-  - push image to GHCR on `push`
+  - backend CI (`./mvnw -B clean verify`)
+  - frontend CI (`npm install` + `npm run build`)
+  - build two Docker images (`backend`, `frontend`)
+  - push images to GHCR only on `main/master` or version tags
 
-## 4) Recommended daily flow
+Image names:
+- `ghcr.io/<owner>/<repo>-backend`
+- `ghcr.io/<owner>/<repo>-frontend`
+
+## 4) Local demo run
+```bash
+docker compose -f compose/docker-compose.demo.yml up --build
+```
+
+Open:
+- `http://127.0.0.1:8080`
+
+The frontend page calls backend API through `/api/message`.
+
+## 5) Recommended daily flow
 ```bash
 git checkout -b feat/xxx
 # code changes...

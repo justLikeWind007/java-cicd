@@ -1,0 +1,18 @@
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/backend/Dockerfile
+    image: java-cicd-backend:local
+    container_name: java-cicd-backend
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/frontend/Dockerfile
+    image: java-cicd-frontend:local
+    container_name: java-cicd-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
