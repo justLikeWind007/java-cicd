@@ -1,0 +1,17 @@
+[Project Progress]
+
+- Date: 2026-02-22
+- Project: java-cicd
+- Status: Git commit workflow + GitHub CI/CD baseline initialized
+
+[Checklist]
+- [x] Repository initialized
+- [x] CI workflow initialized
+- [x] Dockerfile initialized
+- [x] Git hooks workflow initialized
+- [x] Checkpoint commit scripts initialized
+- [ ] PRD finalized
+- [ ] Milestones planned
+
+[Notes]
+- This file tracks execution progress and key checkpoints.

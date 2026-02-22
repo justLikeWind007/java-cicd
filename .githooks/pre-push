@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Enforce clean tree before push so each completed change is committed.
+if ! git diff --quiet || ! git diff --cached --quiet; then
+  echo "Push blocked: working tree is not clean. Commit your changes first."
+  exit 1
+fi
+
+if [[ -x "./mvnw" ]]; then
+  echo "Running tests before push..."
+  ./mvnw -q test
+fi
+
+echo "Pre-push checks passed."
