@@ -116,7 +116,7 @@ jobs:
           output: trivy-backend.sarif
 
       - name: 上传后端 SARIF
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: trivy-backend.sarif
 
@@ -170,6 +170,6 @@ jobs:
           output: trivy-frontend.sarif
 
       - name: 上传前端 SARIF
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: trivy-frontend.sarif
