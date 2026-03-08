@@ -109,7 +109,7 @@ jobs:
           sbom: true
 
       - name: Trivy 扫描后端镜像配置
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@0.35.0
         with:
           scan-type: config
           format: sarif
@@ -163,7 +163,7 @@ jobs:
           sbom: true
 
       - name: Trivy 扫描前端镜像配置
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@0.35.0
         with:
           scan-type: config
           format: sarif
